@@ -159,7 +159,7 @@ int ModApiClient::l_send_formspec_fields(lua_State *L)
 	std::string* fields = new std::string(luaL_checkstring(L, 2));
 	bool local_only = lua_isboolean(L, 1) ? lua_toboolean(L, 1) : false;
 
-	Client client = getClient(L);
+	Client* client = getClient(L);
 	TextDest *txt_dst;
 	switch (local_only) {
 		case true: txt_dst = ew LocalFormspecHandler(*formname, client);
