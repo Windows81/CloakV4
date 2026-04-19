@@ -152,6 +152,23 @@ int ModApiClient::l_show_formspec(lua_State *L)
 	return 1;
 }
 
+// send_formspec_fields()
+int ModApiClient::l_send_formspec_fields(lua_State *L)
+{
+	std::string formname = new std::string(luaL_checkstring(L, 1));
+	std::string fields = new std::string(luaL_checkstring(L, 2));
+	bool local_only = lua_isboolean(L, 1) ? lua_toboolean(L, 1) : false;
+
+	Client client = getClient(L);
+	TextDest *txt_dst;
+	switch (local_only) {
+		case true: txt_dst = ew LocalFormspecHandler(*formname, client);
+		case false: txt_dst = new TextDestPlayerInventory(client, *formname);
+	}
+	text_dst->gotText(fields);
+	return 0;
+}
+
 // send_respawn()
 int ModApiClient::l_send_respawn(lua_State *L)
 {
@@ -436,7 +453,7 @@ int ModApiClient::l_place_node(lua_State *L)
 		client->interact(INTERACT_PLACE, pointed);
 		return 0;
 	}
-	
+
 	MapNode n(id, 0, 0);
 	client->addNode(pos, n);
 	client->interact(INTERACT_PLACE, pointed);
