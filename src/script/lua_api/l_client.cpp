@@ -155,8 +155,8 @@ int ModApiClient::l_show_formspec(lua_State *L)
 // send_formspec_fields()
 int ModApiClient::l_send_formspec_fields(lua_State *L)
 {
-	std::string formname = new std::string(luaL_checkstring(L, 1));
-	std::string fields = new std::string(luaL_checkstring(L, 2));
+	std::string* formname = new std::string(luaL_checkstring(L, 1));
+	std::string* fields = new std::string(luaL_checkstring(L, 2));
 	bool local_only = lua_isboolean(L, 1) ? lua_toboolean(L, 1) : false;
 
 	Client client = getClient(L);
