@@ -165,7 +165,11 @@ int ModApiClient::l_send_formspec_fields(lua_State *L)
 		case true: txt_dst = new LocalFormspecHandler(*formname, client);
 		case false: txt_dst = new TextDestPlayerInventory(client, *formname);
 	}
-	txt_dst->gotText(fields);
+
+	std::wstring fields_wstr = utf8_to_wide(*fields);
+	txt_dst->gotText(fields_wstr);
+	delete formname;
+	delete fields;
 	return 0;
 }
 
