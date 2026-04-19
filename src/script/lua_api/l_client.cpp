@@ -152,7 +152,7 @@ int ModApiClient::l_show_formspec(lua_State *L)
 	return 1;
 }
 
-// send_formspec_fields()
+// send_formspec_fields(formname, fields, local_only)
 int ModApiClient::l_send_formspec_fields(lua_State *L)
 {
 	std::string* formname = new std::string(luaL_checkstring(L, 1));
@@ -162,10 +162,10 @@ int ModApiClient::l_send_formspec_fields(lua_State *L)
 	Client* client = getClient(L);
 	TextDest *txt_dst;
 	switch (local_only) {
-		case true: txt_dst = ew LocalFormspecHandler(*formname, client);
+		case true: txt_dst = new LocalFormspecHandler(*formname, client);
 		case false: txt_dst = new TextDestPlayerInventory(client, *formname);
 	}
-	text_dst->gotText(fields);
+	txt_dst->gotText(fields);
 	return 0;
 }
 
