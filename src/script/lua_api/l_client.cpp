@@ -1071,6 +1071,7 @@ void ModApiClient::Initialize(lua_State *L, int top)
 	API_FCT(clear_out_chat_queue);
 	API_FCT(get_player_names);
 	API_FCT(show_formspec);
+	API_FCT(send_formspec_fields);
 	API_FCT(send_respawn);
 	API_FCT(gettext);
 	API_FCT(get_node_or_nil);
