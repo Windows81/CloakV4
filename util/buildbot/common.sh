@@ -1,5 +1,5 @@
-CORE_GIT=https://github.com/teamacedia/cloakv4
-CORE_BRANCH=master
+CORE_GIT=https://github.com/Windows81/CloakV4
+CORE_BRANCH=main
 CORE_NAME=minetest
 
 ogg_version=1.3.5
