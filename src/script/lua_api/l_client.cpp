@@ -165,7 +165,11 @@ int ModApiClient::l_send_formspec_fields(lua_State *L)
 		case true: txt_dst = new LocalFormspecHandler(*formname, client);
 		case false: txt_dst = new TextDestPlayerInventory(client, *formname);
 	}
-	txt_dst->gotText(fields);
+
+	std::wstring fields_wstr = utf8_to_wide(*fields);
+	txt_dst->gotText(fields_wstr);
+	delete formname;
+	delete fields;
 	return 0;
 }
 
@@ -1067,6 +1071,7 @@ void ModApiClient::Initialize(lua_State *L, int top)
 	API_FCT(clear_out_chat_queue);
 	API_FCT(get_player_names);
 	API_FCT(show_formspec);
+	API_FCT(send_formspec_fields);
 	API_FCT(send_respawn);
 	API_FCT(gettext);
 	API_FCT(get_node_or_nil);
